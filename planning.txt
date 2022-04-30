@@ -1,0 +1,244 @@
+Programa_principal(c++){
+	chamar_função_ia_32();
+}traduyor
+
+IA32{
+    add    db "ADD",   0
+    sub    db "SUB",   0
+    mult   db "MULT",  0 
+    div    db "DIV",   0
+    jmp    db "JMP",   0
+    jmpn   db "JMPN",  0
+    jmpp   db JMPP",   0
+    jmpz   db JMPZ",   0
+    copy   db COPY",   0
+    load   db LOAD",   0
+    store  db STORE",  0
+    input  db INPUT",  0
+    output db OUTPUT", 0
+    stop   db STOP",   0
+    equ SIZE 10000
+    char[SIZE] object_text 
+    int[SIZE] object_file;
+    int[SIZE] input_buffer;
+    int output_file_size;
+    int acumulador = 0;
+    int program_counter = 0;
+    int opcode;
+
+    // Le arquivo objeto de entrada e armazena em memória
+	void read_object_file(){
+		// Le o arquivo e armazena na memória
+        abrir_arquivo();
+
+        //Converte um vetor de char em vetor de int
+        convert_to_array_of_int();
+	}
+	
+    // Create the output file in which will store the unassembly
+    *file_descriptor create_output_file(){    
+        // Le o arquivo e retorna o file descriptor
+        abrir_arquivo();
+        return *file_descriptor;
+    }
+
+    // Close the output file
+    close_output_file(*file_descriptor){
+        close_file();
+    }
+
+    // save the name of the instruction of the corresponding opcode
+    void register_opcode(char* name){
+        output_file_size++;
+        add_string_on_file(name);
+    }
+
+    // get the next value on object file and returns to eax
+    int get_next_number(program_counter){
+        eax = object_file[program_counter]
+        program_counter++
+        return eax
+    }
+
+    // Get the element on the object file on index position
+    eax get_number_object_file(index);
+
+    // Set the element on the object file on index position
+    set_number_object_file(index, value);
+
+    execute_add(program_counter){
+        eax = get_next_number(program_counter);
+        ebx = get_number_object_file(eax)
+        mov eax, [acumulador]
+        add eax, ebx
+        mov [acumulador], eax;
+    }
+    
+    execute_sub(program_counter){
+        eax = get_next_number(program_counter);
+        ebx = get_number_object_file(eax)
+        mov eax, [acumulador]
+        sub eax, ebx
+        mov [acumulador], eax;
+    }
+
+    execute_mult(program_counter){
+        eax = get_next_number(program_counter);
+        ebx = get_number_object_file(eax)
+        mov eax, [acumulador]
+        mul eax, ebx
+        mov [acumulador], eax;
+    }
+    
+    execute_div(program_counter){
+        eax = get_next_number(program_counter);
+        ebx = get_number_object_file(eax)
+        mov eax, [acumulador]
+        div eax, ebx
+        mov [acumulador], eax;
+    }
+
+    execute_jmp(program_counter){
+        eax = get_next_number(program_counter);
+        ebx = get_number_object_file(eax)
+        mov program_counter, ebx;
+    }
+    
+    execute_jmpn(program_counter){
+        eax = get_next_number(program_counter);
+        ebx = get_number_object_file(eax)
+        if(acumulador < 0){
+            mov program_counter, ebx
+        }
+    }
+
+    execute_jmpp(program_counter){
+        eax = get_next_number(program_counter);
+        ebx = get_number_object_file(eax)
+        if(acumulador > 0){
+            mov program_counter, ebx
+        }
+    }
+
+    execute_jmpz(program_counter){
+        eax = get_next_number(program_counter);
+        ebx = get_number_object_file(eax)
+        if(acumulador == 0){
+            mov program_counter, ebx
+        }
+    }
+
+    execute_copy(program_counter){
+        eax = get_next_number(program_counter);
+        eax = get_number_object_file(eax)
+        mov ebx, eax
+        eax = get_next_number(program_counter);
+        set_number_object_file(eax, ebx)
+    }
+
+    execute_load(program_counter){
+        eax = get_next_number(program_counter);
+        eax = get_number_object_file(eax)
+        mov [acumulador], eax
+    }
+
+    execute_store(program_counter){
+        eax = get_next_number(program_counter);
+        mov ebx, [acumulador]
+        set_number_object_file(eax, ebx)
+    }
+
+    execute_input(program_counter){
+        mov eax, 3
+        mov ebx, 0
+        mov ecx, input_buffer
+        mov edx, SIZE
+        int 0x80
+        ; READS SIZE chars and put on input
+
+        lea esi, [input_buffer]
+        call string_to_int
+
+        mov ebx, eax
+        eax = get_next_number(program_counter);
+        set_number_object_file(eax, ebx)
+    }
+
+    execute_output(program_counter){
+        eax = get_next_number(program_counter);
+        eax = get_number_object_file(eax)
+
+        mov ebx, SIZE
+        lea esi,[input_buffer]    
+        call int_to_string
+
+        mov eax, 4
+        mov ebx, 1
+        mov ecx, input_buffer   ; pointer to the buffer
+        mov edx, SIZE           ; size to be read
+        int 0x80
+    }
+
+    execute_stop(program_counter){
+        mov eax, 1
+        int 0x80
+    }
+
+	simulator(){
+        read_object_file();
+        create_output_file();
+
+        do{
+            opcode = get_next_number(program_counter);
+            eax = get_opcode_name(opcode);
+            register_opcode(eax);
+        
+            switch (opcode):
+                case 1:
+                    execute_add(program_counter);
+                    break;
+                case 2:
+                    execute_sub(program_counter);
+                    break;
+                case 3:
+                    execute_mult(program_counter);
+                    break;
+                case 4:
+                    execute_div(program_counter);
+                    break;
+                case 5:
+                    execute_jmp(program_counter);
+                    break;
+                case 6:
+                    execute_jmpn(program_counter);
+                    break;
+                case 7:
+                    execute_jmpp(program_counter);
+                    break;
+                case 8:
+                    execute_jmpz(program_counter);
+                    break;
+                case 9:
+                    execute_copy(program_counter);
+                    break;
+                case 10:
+                    execute_load(program_counter);
+                    break;
+                case 11:
+                    execute_store(program_counter);
+                    break;
+                case 12:
+                    execute_input(program_counter);
+                    break;
+                case 13:
+                    execute_output(program_counter);
+                    break;
+                case 14:
+                    execute_stop(program_counter);
+                    break;
+        } while(true)        
+
+        close_output_file()
+        print(output_file_size)   
+    }
+}
