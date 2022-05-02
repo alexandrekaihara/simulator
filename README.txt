@@ -26,5 +26,8 @@ Para instalar o g++ na versão utilizada no Linux, use o seguinte comnado:
 	gcc simulator.c implementation.o file_handler.o instructions.o print.o convert.o -o simulator
 
 3. Para executar:
-	./simulator [path to the object file]
+	sudo ./simulator [path to the object file]
 
+4. Executar testes automatizasdos:
+	sudo chmod +x automated_tests.sh
+	sudo ./automated_tests.sh
