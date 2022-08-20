@@ -1,40 +1,40 @@
 #!/bin/bash
 
 echo "Testing add"
-./simulator teste/add.out
+./simulator test/add.out
 
 echo "Testing sub"
-./simulator teste/sub.out
+./simulator test/sub.out
 
 echo "Testing mult"
-./simulator teste/mult.out
+./simulator test/mult.out
 
 echo "Testing div"
-./simulator teste/div.out
+./simulator test/div.out
 
 echo "Testing jmp"
-./simulator teste/jmp.out
+./simulator test/jmp.out
 
 echo "Testing jmpp"
-./simulator teste/jmpp.out
+./simulator test/jmpp.out
 
 echo "Testing jmpn"
-./simulator teste/jmpn.out
+./simulator test/jmpn.out
 
 echo "Testing jmpz"
-./simulator teste/jmpz.out
+./simulator test/jmpz.out
 
 echo "Testing copy"
-./simulator teste/copy.out
+./simulator test/copy.out
 
 echo "Testing input"
-./simulator teste/input.out
+./simulator test/input.out
 
 echo "Testing output"
-./simulator teste/output.out
+./simulator test/output.out
 
 echo "Testing load"
-./simulator teste/load.out
+./simulator test/load.out
 
 echo "Testing store"
-./simulator teste/store.out
+./simulator test/store.out

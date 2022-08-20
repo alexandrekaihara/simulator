@@ -1,4 +1,7 @@
 section .data:
+    global IS_NEGATIVE
+    global IS_POSITIVE
+
     execute_add_msg db 'execute_add', 0dH, 0ah
     execute_add_size equ $-execute_add_msg
 
@@ -73,8 +76,6 @@ global execute_load
 global execute_store
 global execute_input
 global execute_output
-global IS_NEGATIVE
-global IS_POSITIVE
 global get_sign
 
 

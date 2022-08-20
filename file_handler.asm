@@ -1,4 +1,8 @@
 section .data
+
+   global disassembly
+   global disassembly_index
+
     read_object_file_msg db 'read_object_file', 0dH, 0ah
     read_object_file_size equ $-read_object_file_msg
 
@@ -27,9 +31,7 @@ global convert_chararray_to_intarray
 global create_output_file
 global save_output_file
 global register_opcode
-global disassembly_file
-global disassembly
-global disassembly_index
+extern disassembly_file
 
 
 extern SIZE
