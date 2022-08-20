@@ -1,4 +1,11 @@
 section .data
+    global SIZE
+    global accumulator
+    global buffer
+    global log
+    global LOG_ACTIVE
+    global program_counter
+
     ; Messages for printing
     get_next_number_msg db 'get_next_number', 0dH, 0ah
     get_next_number_size equ $-get_next_number_msg
@@ -67,7 +74,7 @@ section .data
 
     LOG_ACTIVE equ 1
     LOG_INACTIVE equ 0
-    log dd LOG_INACTIVE
+    log dd LOG_ACTIVE
 
 
 section .bss
@@ -80,16 +87,10 @@ section .text
 
 ; Export labels
 global simulator
-global SIZE
 global get_next_number
 global set
-global accumulator
 global get_number_object_file
 global set_number_object_file   
-global program_counter
-global buffer
-global log
-global LOG_ACTIVE
 
 
 ; Imports from convert
@@ -110,7 +111,7 @@ extern convert_chararray_to_intarray
 extern save_output_file
 extern register_opcode
 extern print_object_file
-extern disassembly_file
+global disassembly_file
 extern disassembly
 extern disassembly_index
 

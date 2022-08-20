@@ -1,4 +1,5 @@
 section .data
+    global breakline
     breakline db 0dH, 0ah
 
 
@@ -11,7 +12,6 @@ section .text
 global print_int
 global print_break
 global print_screen
-global breakline
 global print_object_file
 global print_screen_log
 global print_int_log
