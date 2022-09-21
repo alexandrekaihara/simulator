@@ -1,11 +1,3 @@
-Disciplina: Software Básico
-Código: CIC104
-Turma: B
-Docente: Bruno Luiggi Macchiavello Espinoza
-Discente: Alexandre Mitsuru Kaihara
-
-TRABALHO 2
-
 1. Dependências
 As dependencias são:    
 	Executado em uma máquina virtual Debian GNU/Linux 11 (bullseye) 32 bits (Linux debian 5.10.0-13-686 #1 SMP Debian 5.10.106-1 (2022-03-17) i686 GNU/Linux)
