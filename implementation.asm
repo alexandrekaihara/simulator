@@ -280,8 +280,8 @@ simulator:
     call save_output_file
 
     ; Print the number of bytes read
-    push dword [disassembly_index]
-    call print_int
+    ;push dword [disassembly_index]
+    ;call print_int
 
     mov eax, disassembly_index ; return the number of bytes written on file
 
